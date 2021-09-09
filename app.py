@@ -16,7 +16,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Daily Stand Up"
-
+server = app.server
 # import candidate team members from json config
 with open("config.json") as myjson:
     config = json.load(myjson)
