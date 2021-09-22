@@ -10,6 +10,7 @@ from dash.dependencies import Input, Output
 import base64
 import json
 import os
+from whitenoise import WhiteNoise
 from utils.picker import sample_without_replacement
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -17,6 +18,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Daily Stand Up"
 server = app.server
+server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/')
 # import candidate team members from json config
 with open("config.json") as myjson:
     config = json.load(myjson)
