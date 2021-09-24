@@ -105,11 +105,11 @@ def update_image_src(current_name, n_clicks):
 
     # and if that's not available, don't show anything
     print("Image: " + image_path)
-    if os.path.exists(image_path):
-        encoded_image = base64.b64encode(open(image_path, "rb").read())
-        return "data:image/png;base64,{}".format(encoded_image.decode())
-    else:
-        return None
+    # if os.path.exists(image_path):
+    encoded_image = base64.b64encode(open(image_path, "rb").read())
+    return "data:image/png;base64,{}".format(encoded_image.decode())
+    # else:
+        # return None
 
 
 @app.callback(
