@@ -10,7 +10,6 @@ from dash.dependencies import Input, Output
 import base64
 import json
 import os
-from whitenoise import WhiteNoise
 from utils.picker import sample_without_replacement
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -18,7 +17,6 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Daily Stand Up"
 server = app.server
-server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/')
 # import candidate team members from json config
 with open("config.json") as myjson:
     config = json.load(myjson)
@@ -104,11 +102,12 @@ def update_image_src(current_name, n_clicks):
         image_path = os.path.join(asset_filepath, "noimage.jpg")
 
     # and if that's not available, don't show anything
-    if os.path.exists(image_path):
-        encoded_image = base64.b64encode(open(image_path, "rb").read())
-        return "data:image/png;base64,{}".format(encoded_image.decode())
-    else:
-        return None
+    print("Image: " + image_path)
+    # if os.path.exists(image_path):
+    encoded_image = base64.b64encode(open(image_path, "rb").read())
+    return "data:image/png;base64,{}".format(encoded_image.decode())
+    # else:
+        # return None
 
 
 @app.callback(
