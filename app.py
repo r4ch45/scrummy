@@ -16,7 +16,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = "Daily Stand Up"
-
+server = app.server
 # import candidate team members from json config
 with open("config.json") as myjson:
     config = json.load(myjson)
@@ -102,6 +102,7 @@ def update_image_src(current_name, n_clicks):
         image_path = os.path.join(asset_filepath, "noimage.jpg")
 
     # and if that's not available, don't show anything
+    print("Image: " + image_path)
     if os.path.exists(image_path):
         encoded_image = base64.b64encode(open(image_path, "rb").read())
         return "data:image/png;base64,{}".format(encoded_image.decode())
